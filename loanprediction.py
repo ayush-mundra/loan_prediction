@@ -97,14 +97,15 @@ Property_Area = pd.get_dummies(df['Property_Area'])
 df.drop("Property_Area", axis =1,inplace = True)
 
 from sklearn import preprocessing
-
 # Doing normalization of values between 0 and 1 on columns ApplicantIncome, CoapplicantIncome, Loan_Amount_Term, LoanAmount
-x = df.values #returns a numpy array
 min_max_scaler = preprocessing.MinMaxScaler()
-df[["ApplicantIncome", "CoapplicantIncome", "Loan_Amount_Term", "LoanAmount" ]] = min_max_scaler.fit_transform(df[["ApplicantIncome", "CoapplicantIncome", "Loan_Amount_Term", "LoanAmount" ]])
 
 # Adding the newly created columns back to dataframe
+
 df = pd.concat([df, Gender, Married, Loan_Status, Education, Self_Employed, Property_Area], axis =1)
+
+# Doing the normalization
+df[["ApplicantIncome", "CoapplicantIncome", "LoanAmount", "Loan_Amount_Term", "Credit_History", "Dependents1", "Male", "married_Yes", "Y", "graduate_Not Graduate" , "Yes",  "Rural", "Semiurban", "Urban"]] = min_max_scaler.fit_transform(df[["ApplicantIncome", "CoapplicantIncome", "LoanAmount", "Loan_Amount_Term", "Credit_History", "Dependents1", "Male", "married_Yes", "Y", "graduate_Not Graduate" , "Yes",  "Rural", "Semiurban", "Urban"]])
 
 #checking the correlation
 import matplotlib.pyplot as plt
@@ -115,7 +116,7 @@ sns.heatmap(impodata_correlation,annot=True)
 import joblib
 
 #dropping loan id as it is not important for prediction
-df.drop("Loan_ID",axis=1,inplace = True)
+#df.drop("Loan_ID",axis=1,inplace = True)
 
 #importing necessary libraries
 from sklearn.model_selection import train_test_split
@@ -146,6 +147,8 @@ print( classification_report(y_train, prediction1))
 print( classification_report(y_test, prediction))
 filename = "finalized_model.sav"
 joblib.dump(model, filename)
+filename1 = "normalize.sav"
+joblib.dump(min_max_scaler, filename1)
 
 #We are getting 83% accuracy on training data and 78% on test data
 
@@ -160,3 +163,4 @@ joblib.dump(model, filename)
 # knn.fit(X_train, y_train)
 # pred=knn.predict(X_test)
 # print(classification_report(pred, y_test))
+
