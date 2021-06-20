@@ -15,7 +15,7 @@ import numpy as np
 import random
 
 #creating the dataframe
-df = pd.read_csv("/content/drive/MyDrive/loan_prediction/train_u6lujuX_CVtuZ9i.csv")
+df = pd.read_csv("train.csv")
 
 #checking for null values
 df.isnull().sum()
