@@ -105,7 +105,7 @@ min_max_scaler = preprocessing.MinMaxScaler()
 df = pd.concat([df, Gender, Married, Loan_Status, Education, Self_Employed, Property_Area], axis =1)
 
 # Doing the normalization
-df[["ApplicantIncome", "CoapplicantIncome", "LoanAmount", "Loan_Amount_Term", "Credit_History", "Dependents1", "Male", "married_Yes", "Y", "graduate_Not Graduate" , "Yes",  "Rural", "Semiurban", "Urban"]] = min_max_scaler.fit_transform(df[["ApplicantIncome", "CoapplicantIncome", "LoanAmount", "Loan_Amount_Term", "Credit_History", "Dependents1", "Male", "married_Yes", "Y", "graduate_Not Graduate" , "Yes",  "Rural", "Semiurban", "Urban"]])
+df[["ApplicantIncome", "CoapplicantIncome", "LoanAmount", "Loan_Amount_Term", "Credit_History", "Dependents1", "Male", "married_Yes", "graduate_Not Graduate" , "Yes",  "Rural", "Semiurban", "Urban"]] = min_max_scaler.fit_transform(df[["ApplicantIncome", "CoapplicantIncome", "LoanAmount", "Loan_Amount_Term", "Credit_History", "Dependents1", "Male", "married_Yes", "graduate_Not Graduate" , "Yes",  "Rural", "Semiurban", "Urban"]])
 
 #checking the correlation
 import matplotlib.pyplot as plt
@@ -116,7 +116,7 @@ sns.heatmap(impodata_correlation,annot=True)
 import joblib
 
 #dropping loan id as it is not important for prediction
-#df.drop("Loan_ID",axis=1,inplace = True)
+df.drop("Loan_ID",axis=1,inplace = True)
 
 #importing necessary libraries
 from sklearn.model_selection import train_test_split
